@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fake News Detection</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script>
+    const express = require('express');
+const bodyParser = require('body-parser');
+const fakeNewsDetector = require('./fakeNewsDetector');
+
+const app = express();
+app.use(bodyParser.json());
+
+app.post('/detect', (req, res) => {
+  const newsArticle = req.body.newsArticle;
+  const isFake = fakeNewsDetector.detect(newsArticle);
+  res.json({ isFake });
+});
+
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
+});
+
+
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    form {
+      margin-bottom: 20px;
+    }
+    
+    textarea {
+      width: 100%;
+    }
+    
+    button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fake News Detection System</h1>
+  <form id="newsForm">
+    <label for="newsInput">Enter News Article:</label>
+    <textarea id="newsInput" rows="5" cols="50"></textarea>
+    <button type="submit">Detect Fake News</button>
+  </form>
+  <div id="result"></div>
+
+  <script src="javascript.js"></script>
+</body>
+</html>
